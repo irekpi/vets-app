@@ -1,10 +1,11 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView
 from django_filters.views import FilterView
+
 from users.forms import AddPetForm
-from utils.utils import BaseContextMixinView
 from users.models import Pet
 from utils.filters import PetsFilter
+from utils.utils import BaseContextMixinView
 
 
 class AddPetView(BaseContextMixinView, CreateView):

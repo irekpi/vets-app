@@ -10,3 +10,16 @@ Strona domowa
     Lub przejść do listy swoich pupili
     <a href="{% url 'users:all_pets' %}">Lista Pupili</a>
 {% endif %}
+{% if request.user.id is none %}
+    <br>  <br>  <br>  <br>
+    <a href="{% url 'account_login' %}">Zaloguj</a>
+    <br>
+    lub
+    <br>
+    <a href="{% url 'account_signup' %}">Zarejestruj</a>
+    <br>
+{% else %}
+    <br>  <br>  <br>  <br>
+    <a href="{% url 'account_logout' %}">Wyloguj</a>
+    <br>
+{% endif %}

@@ -10,6 +10,7 @@ class LoginAccessMixin(LoginRequiredMixin):
 
 class BaseContextMixinView:
     """Groups of users that are allowed to view specific parts of sites """
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.groups.filter(name=User.DOCTOR):

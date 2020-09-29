@@ -1,5 +1,4 @@
 import django_filters
-from users.models import Pet
 
 
 class PetsFilter(django_filters.FilterSet):

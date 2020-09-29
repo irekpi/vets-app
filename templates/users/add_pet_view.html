@@ -1,7 +1,7 @@
 {% if user_type == 'doctor' %}
     Jesteś doktorem więć nie mozesz dodać pupila
 {% elif user_type == 'patient' %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit">
