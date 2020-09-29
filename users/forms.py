@@ -1,8 +1,11 @@
+from allauth.account.forms import SignupForm
 from django import forms
+from django.contrib.auth.models import Group
 from django.template.defaultfilters import slugify
+from django.utils.translation import gettext_lazy as _
 from photologue.models import Gallery, Photo
 
-from users.models import Pet
+from users.models import Pet, User
 
 
 class AddPetForm(forms.ModelForm):
@@ -24,4 +27,13 @@ class AddPetForm(forms.ModelForm):
         )
         gallery_create.photos.add(photo)
         user.save()
+        return user
+
+
+class CustomSignupForm(SignupForm):
+    user_type = forms.ChoiceField(choices=User.USER_TYPES, widget=forms.Select(), label=_('Typ konta'))
+
+    def save(self, request):
+        user = super(CustomSignupForm, self).save(request)
+        user.groups.add(Group.objects.get(name=self.cleaned_data['user_type']))
         return user

@@ -2,12 +2,10 @@ from allauth.account import app_settings
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.utils import import_attribute
 from django.db import transaction
+from schedule.models import Calendar
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):
-
-    # fields = ['is_adult', 'privacy_policy', 'use_terms', 'phone_number', 'street', 'postal_code', 'country',
-    #           'date_of_birth', 'emails_consent', 'city', 'pid', 'id_type', 'id_number']
 
     @transaction.atomic
     def save_user(self, request, user, form, commit=True):
@@ -34,14 +32,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.set_unusable_password()
         self.populate_username(request, user)
 
-        # custom info about user is added below
-        for item in self.fields:
-            setattr(user, item, data.get(item))
-
         # Create calendar during registration process
-        # calendar = MyCalendar.objects.create(name=data.get('email'), slug=data.get('email'))
+        calendar = Calendar.objects.create(name=email, slug=email)
 
-        # user.calendar = calendar
+        user.calendar = calendar
         if commit:
             # Ability not to commit makes it easier to derive from
             # this adapter by adding

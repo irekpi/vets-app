@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'photologue',
     'sortedm2m',
+    'schedule',
 
     # Main apps
     'users',
@@ -161,3 +162,4 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_ADAPTER = 'users.adapter.CustomAccountAdapter'
+ACCOUNT_FORMS = {'signup': 'users.forms.CustomSignupForm'}

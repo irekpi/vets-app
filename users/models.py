@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext as _
 from photologue.models import Gallery
+from schedule.models import Calendar
 
 
 class User(AbstractUser):
@@ -11,7 +12,8 @@ class User(AbstractUser):
         (DOCTOR, 'Doktor'),
         (PATIENT, 'Pacjent'),
     )
-    pass
+    calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE, verbose_name=_("Kalendarz"), null=True,
+                                    blank=True)
 
     class Meta:
         verbose_name = _('Użytkownik')
