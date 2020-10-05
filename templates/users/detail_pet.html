@@ -1,0 +1,4 @@
+{{ object.name }}
+    {% for photo in object.gallery.photos.all %}
+        <img src="{{ photo.get_thumbnail_url}}">
+    {% endfor %}

@@ -9,11 +9,12 @@ from users.models import Pet, User
 
 
 class AddPetForm(forms.ModelForm):
-    img_field = forms.ImageField(label='zdjecie')
+    img_field = forms.ImageField(label=_('Zdjecie'))
+    doctor = forms.ModelChoiceField(User.objects.filter(groups__name=User.DOCTOR), label=_('Doktor'))
 
     class Meta:
         model = Pet
-        fields = ['name', 'type']
+        fields = ['name', 'type', 'doctor']
 
     def save(self, commit=True):
         user = super(AddPetForm, self).save(commit=False)

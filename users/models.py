@@ -14,6 +14,9 @@ class User(AbstractUser):
     )
     calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE, verbose_name=_("Kalendarz"), null=True,
                                     blank=True)
+    pupils = models.ForeignKey('PetContainer', on_delete=models.CASCADE, verbose_name=_("Doktor"),
+                               null=True,
+                               blank=True)
 
     class Meta:
         verbose_name = _('Użytkownik')
@@ -39,6 +42,20 @@ class Animal(models.Model):
         verbose_name_plural = "Zwierzęta"
 
 
+class PetContainer(models.Model):
+    doctor = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, related_name='doctor_name',
+        verbose_name=_('Doktor')
+    )
+
+    class Meta:
+        verbose_name = _('Podopieczny')
+        verbose_name_plural = _('Podopieczni')
+
+    def __str__(self):
+        return '{} {}'.format(self.doctor.first_name, self.doctor.last_name)
+
+
 class Pet(models.Model):
     owner_name = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, related_name='owner_name',
@@ -51,6 +68,10 @@ class Pet(models.Model):
     )
     gallery = models.OneToOneField(
         Gallery, blank=True, on_delete=models.CASCADE, null=True, verbose_name=_('Galeria')
+    )
+    doctor = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True, related_name='pet_container',
+        verbose_name=_('Imie Doktora')
     )
 
     class Meta:
