@@ -1,0 +1,46 @@
+{% load templatehelpers %}
+Doktorze
+<br>
+Klikając "dodaj" przypisujesz pupila do swojego grona
+<br><br><br>
+<form method="get">
+    {{ filter.form }}
+    <input type="submit" value="Szukaj">
+</form>
+
+<br><br>
+
+{% for obj in page_obj %}
+    <br>
+    {{ obj.name }}
+    {{ obj.type.name }}
+
+    {% for photo in obj.gallery.photos.all %}
+        <img src="{{ photo.get_thumbnail_url}}">
+    {% endfor %}
+    <a href="{% url 'users:add_doctor' obj.pk %}">Dodaj</a>
+    <br>
+{% endfor %}
+<br>
+{% with params=request.GET.urlencode %}
+
+    <div class="pagination">
+                  <span class="step-link">
+                      {% if page_obj.has_previous %}
+                      <a class="pagination__link"
+                         href="{% pagination_filter 1 'page' params %}">&laquo; Pierwsza strona </a>
+                      <a class="pagination__link"
+                         href="{% pagination_filter page_obj.previous_page_number 'page' params %}">&laquo; Poprzednia </a>
+                      {% endif %}
+                  </span>
+        <span class="pagination--current current">
+                      Strona <span class="color-text-first">{{ page_obj.number }}</span> z {{ page_obj.paginator.num_pages }}
+                  </span>
+        <span class="step-link">
+                      {% if page_obj.has_next %}
+                      <a class="pagination__link" href="{% pagination_filter page_obj.next_page_number 'page' params %}"> &raquo; Następna </a>
+                      <a class="pagination__link" href="{% pagination_filter page_obj.paginator.num_pages 'page' params %}"> &raquo; Ostatnia  </a>
+                      {% endif %}
+                  </span>
+    </div>
+{% endwith %}
