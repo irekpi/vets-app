@@ -18,7 +18,7 @@ Klikając "dodaj" przypisujesz pupila do swojego grona
     {% for photo in obj.gallery.photos.all %}
         <img src="{{ photo.get_thumbnail_url}}">
     {% endfor %}
-    <a href="{% url 'users:detail_pet' obj.pk %}">Szczegóły</a>
+    <a href="{% url 'animals:detail_pet' obj.pk %}">Szczegóły</a>
     <br>
 {% endfor %}
 <br>
