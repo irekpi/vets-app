@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # Main apps
     'users',
+    'animals',
 
 ]
 

@@ -2,13 +2,16 @@ Strona domowa
 <br>
 {% if user_type == 'doctor' %}
     Jesteś doktorem więć nie mozesz dodać pupila
+    <br>
+    <a href="{% url 'users:add_doctor_list' %}">Lista Pupili</a>
+    <br>
 {% elif user_type == 'patient' %}
     Jesteś pacjentem i mozesz dodac pupili klikając w poniższe
     <br>
-    <a href="{% url 'users:add_pet' %}">Dodaj Pupila</a>
+    <a href="{% url 'animals:add_pet' %}">Dodaj Pupila</a>
     <br>
     Lub przejść do listy swoich pupili
-    <a href="{% url 'users:all_pets' %}">Lista Pupili</a>
+    <a href="{% url 'animals:all_pets' %}">Lista Pupili</a>
 {% endif %}
 {% if request.user.id is none %}
     <br>  <br>  <br>  <br>
